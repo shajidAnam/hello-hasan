@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.hellohasan.R
 import com.example.hellohasan.feature.model.postList.Post
+import java.text.SimpleDateFormat
 
 class PostAdapter(private val postList:MutableList<Post>,private val itemClickListener:onClickListener):RecyclerView.Adapter<PostViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
@@ -23,8 +24,10 @@ class PostAdapter(private val postList:MutableList<Post>,private val itemClickLi
         else {
             holder.postTtile.text=(Html.fromHtml(post.title.rendered))
         }
-        //holder.postTtile.text=post.title.rendered
-        // holder.modifiedDate.text=post.modifiedDate
+        val parser =  SimpleDateFormat("dd-MM-yyyy'T'HH:mm:ss")
+        val date=post.modified
+        holder.modifiedDate.text= parser.parse(date).toString()
+
         Glide.with(holder.postImage)
             .load(post.jetpack_featured_media_url)
             .into(holder.postImage)
