@@ -24,9 +24,10 @@ class PostAdapter(private val postList:MutableList<Post>,private val itemClickLi
         else {
             holder.postTtile.text=(Html.fromHtml(post.title.rendered))
         }
-        val parser =  SimpleDateFormat("dd-MM-yyyy'T'HH:mm:ss")
-        val date=post.modified
-        holder.modifiedDate.text= parser.parse(date).toString()
+        val InputFormatter =  SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+        val OutputFormatter =  SimpleDateFormat("dd-MMM-yyyy HH:mm:ss")
+        var date = InputFormatter.parse(post.modified)
+        holder.modifiedDate.text= OutputFormatter.format(date)
 
         Glide.with(holder.postImage)
             .load(post.jetpack_featured_media_url)
